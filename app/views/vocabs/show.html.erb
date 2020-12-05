@@ -10,9 +10,8 @@
 
 <div>コメントする</div>
 
-<%= form_with(model: [@vocab, @comment], method: :post) do |f| %>
+<%= form_with(model: [@vocab.user, @vocab, @comment], method: :post) do |f| %>
     <%= f.text_area :content %>
-    <%= f.hidden_field :id %>
     <%= f.submit '投稿する'%>
 <% end %>
 
@@ -20,7 +19,7 @@
 
 <% @comments.each do |comment| %>
     <p><%= comment.content %></p>
-    <p><%= link_to "削除", vocab_comment_path(@vocab, comment), method: :delete %></p>
+    <p><%= link_to "削除", user_vocab_comment_path(@vocab.user, @vocab, comment), method: :delete %></p>
 <% end %>
 
 <button class="btn btn-secondary" onClick="history.back();">戻る</button>

@@ -8,7 +8,7 @@
                     <% @vocabs.each do |vocab| %>
                         <div class="vocab__item" data-vocab-id="<%= vocab.id %>">
                             <p class="vocab__time caption float-right"><%= time_ago_in_words(vocab.created_at) %>前</p>
-                            <h2 class="vocab__word"><%= link_to vocab.name, vocab_path(vocab) %></h2>
+                            <h2 class="vocab__word"><%= link_to vocab.name, user_vocab_path(vocab.user, vocab) %></h2>
                             <h3 class="vocab__translation"><%= vocab.translation %></h3>
                             <div class="vocab__sentence"><%= simple_format h vocab.sentence %></div>
                             <a href="/<%= vocab.user.username %>" data-vocab-username="<%= vocab.user.name %>" class="vocab__thumb">
@@ -25,6 +25,18 @@
                                     <i class="far fa-comments"></i>
                                 <% end %>
                                 <%= render 'vocabs/learning', vocab: vocab %>
+                            </div>
+
+                            <div class="vocab__comments">
+                                <div class="vocab__comments__item-list">
+                                    <% @comments = vocab.comment  %>
+                                    <% vocab.comments.each do |comment| %>
+                                        <div class="vocab__comments_item">
+                                            <div><%= comment.user.name %></div>
+                                            <div><%= comment.content %></div>
+                                        </div>
+                                    <% end%>
+                                </div>
                             </div>
                         </div>
                     <% end %>

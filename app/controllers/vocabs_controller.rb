@@ -15,6 +15,8 @@ class VocabsController < ApplicationController
 
     @todays_vocabs = Vocab.where(created_at: Time.now.all_day)
 
+    @comment = Comment.new
+
   end
 
   def new

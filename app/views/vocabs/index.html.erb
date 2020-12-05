@@ -38,6 +38,12 @@
                                         </div>
                                     <% end%>
                                 </div>
+                                <div class="vocab__comments__input">
+                                    <%= form_with(model: [vocab.user, vocab, @comment], method: :post) do |f| %>
+                                        <%= f.text_area :content %>
+                                        <%= f.submit "コメントを投稿"%>
+                                    <% end %>
+                                </div>
                             </div>
                         </div>
                     <% end %>

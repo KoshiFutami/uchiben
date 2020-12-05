@@ -1,0 +1,35 @@
+<h1 class="page-title">うちなーぐち検索</h1>
+
+<%= form_with url: search_vocabs_path, :method => 'get', local: true do |f| %>
+
+    <div class="d-flex justify-content-center mt-4">
+        <%= f.text_field :search, placeholder: 'キーワードを入力', class: 'w-75 mr-1' %>
+        <%= f.submit '検索', :name => nil, class: 'btn btn-outline-success' %>
+    </div>
+
+<% end %>
+
+<% if @vocabs %>
+<div class="vocab-list">
+<% @vocabs.each do |vocab| %>
+    <div class="vocab__item" data-vocab-id="<%= vocab.id %>">
+        <p class="caption float-right"><%= time_ago_in_words(vocab.created_at) %></p>
+        <h2 class="vocab__name"><%= vocab.name %></h2>
+        <h3 class="vocab__translation"><%= vocab.translation %></h3>
+        <p class="vocab__sentence"><%= vocab.sentence %></p>
+        <a href="/<%= vocab.user.username %>" data-vocab-username="<%= vocab.user.name %>" class="vocab__thumb-link float-left mt-3">
+            <% if vocab.user.avatar.present? %>
+                <%= image_tag vocab.user.avatar, alt: vocab.user.name, class: 'vocab__thumb' %>
+            <% else %>
+                <%= image_tag "user-image-default.png", alt: vocab.user.name, class: "vocab__thumb" %>
+            <% end %>
+            <span class="vocab__username">@<%= vocab.user.username %></span>
+        </a>
+        <div class="mt-5 text-right">
+            <%= link_to "コメント", root_path, class: 'btn btn-info' %>
+            <%= link_to "詳細", user_vocab_path(vocab.user, vocab), class: 'btn btn-secondary' %>
+        </div>
+    </div>
+<% end %>
+<% end %>
+</div>

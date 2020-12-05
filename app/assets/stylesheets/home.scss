@@ -1,0 +1,17 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.home-btn-group {
+    width: 240px;
+    margin: 0 auto;
+    .h3+& {
+        margin-top: 40px;
+    }
+    .btn {
+        display: block;
+    }
+    .btn+.btn {
+        margin-top: 15px;
+    }
+}

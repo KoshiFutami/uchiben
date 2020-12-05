@@ -1,0 +1,40 @@
+// 文字装飾
+body {
+    background-color: #f6f6f4!important;
+    font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+}
+html {
+    font-size: 15px;
+}
+* {
+    font-feature-settings: "palt";
+}
+.bg-white {
+    background: #fff;
+    padding: 30px 16px;
+}
+.caption {
+    color: rgb(101, 119, 134);
+    font-size: .85em;
+}
+.font-xs {
+    font-size: .6em;
+}
+.font-sm {
+    font-size: .8em;
+}
+.font-lg {
+    font-size: 1.2em;
+}
+.font-xl {
+    font-size: 1.4em;
+}
+.btn-rounded {
+    border-radius: 30px !important; 
+}
+.page-title {
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.3rem;
+}

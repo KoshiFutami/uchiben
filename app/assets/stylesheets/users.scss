@@ -1,0 +1,44 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.user-detail {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
+    }
+    &__info {
+        flex: 1;
+        margin-left: 40px;
+    }
+    &__name {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    &__profile {
+        font-size: .9rem;
+        margin-top: 10px;
+    }
+    &__count {
+        color: #666;
+        font-size: 1rem;
+    }
+}
+
+.form-error-msg {
+    color: red;
+    list-style: none;
+    &:before {
+        content: "※";
+        margin-right: 5px;
+    }
+}

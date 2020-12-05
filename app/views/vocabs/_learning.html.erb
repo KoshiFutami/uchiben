@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+    <% if vocab.learning_by?(current_user) %>
+        <%= link_to vocab_learnings_path(vocab.id), method: :delete, class: 'vocab__btn vocab__btn--unlearn', title: '「学習中」から外す' do %>
+           <i class="fas fa-tasks"></i>
+        <% end %>
+    <% else %>
+        <%= link_to vocab_learnings_path(vocab.id), method: :post, class: 'vocab__btn vocab__btn--learn', title: '「学習中」に追加する' do %>
+           <i class="fas fa-tasks"></i>
+        <% end %>
+    <% end %>
+<% end %>

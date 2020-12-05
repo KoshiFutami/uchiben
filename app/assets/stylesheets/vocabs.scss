@@ -1,0 +1,108 @@
+// Place all the styles related to the Vocabs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.vocab__item-list {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 18px;
+    background: #fff;
+    border: 1px solid #eeeeef;
+    border-radius: 4px;
+}
+.vocab__item {
+    width: 100%;
+    padding: 16px 0;
+    &+& {
+        border-top: 1px solid #ccc;
+    }
+}
+.vocab__word {
+    font-size: 1.3rem;
+    // font-weight: bold;
+    @include tab {
+        font-size: 1.2rem;
+    }
+    a {
+        color: #333;
+        transition: 0.2s cubic-bezier(0.4, 0.1, 0.3, 1);
+    }
+    a:hover {
+        color: #333;
+        text-decoration: underline;
+        transition: 0.2s cubic-bezier(0.4, 0.1, 0.3, 1);
+    }
+}
+.vocab__translation {
+    font-size: 1.1rem;
+    color: #666;
+}
+.vocab__sentence {
+    font-size: .9rem;
+    margin-top: 10px;
+}
+.vocab__username {
+    color: #666;
+    font-weight: normal;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s cubic-bezier(0.4, 0.1, 0.3, 1);
+    &:hover {
+        border-color: #666;
+        color: #666;
+        transition: 0.2s cubic-bezier(0.4, 0.1, 0.3, 1);
+    }
+}
+.vocab__thumb {
+    float: left;
+    img {
+        background: #fff;
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid #eeeeef;
+        margin-right: 6px;
+    }
+}
+
+.vocab__btn-list {
+    text-align: right;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.vocab__btn {
+    display: block;
+    font-size: 1.6rem;
+    transition: 0.2s cubic-bezier(0.4, 0.1, 0.3, 1);
+    &:hover {
+        transition: 0.2s cubic-bezier(0.4, 0.1, 0.3, 1);
+        opacity: .7;
+    }
+    &+& {
+        margin-left: 20px;
+    }
+}
+
+.vocab__btn--learn {
+    color: #2788bd;
+    &:hover {
+        color: #2788bd;
+    }
+}
+
+.vocab__btn--unlearn {
+    color: #ed829c;
+    &:hover {
+        color: #ed829c;
+    }
+}
+
+.vocab__btn--comment {
+    color: #6db151;
+    &:hover {
+        color: #6db151;
+    }
+}

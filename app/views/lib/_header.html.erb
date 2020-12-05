@@ -1,0 +1,65 @@
+<header class="header">
+    <div class="header__inner">
+        <div class="header__logo">
+            <%= link_to "うちなー塾", root_path %>
+        </div>
+        
+        <nav class="header__nav">
+            <ul>
+            
+                <li>
+                    <a href="/vocabs/search"><i class="fas fa-search"></i></a>
+                </li>
+                <% if user_signed_in? %>
+                    <li>
+                        <%= link_to new_vocab_path do %>
+                            <i class="fas fa-pencil-alt"></i>
+                        <% end %>
+                    </li>
+                    <li>
+                        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+                    </li>
+                    <li id="btn-open-nav">
+                    <% if current_user.avatar.present? %>
+                        <%= image_tag current_user.avatar, alt: current_user.name, class: "header__thumb" %>
+                    <% else %>
+                        <%= image_tag "user-image-default.png", alt: current_user.name, class: "header__thumb" %>
+                    <% end %>
+                        <i class="fas fa-ellipsis-v"></i>
+                        <a href="/<%= current_user.username %>"><i class="fas fa-ellipsis-v"></i></a>
+                    </li>
+                <% else %>
+                    <li>
+                        <a href="/users/sign_in">ログイン</a>
+                    </li>
+                    <li>
+                        <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>
+                    </li>
+                    <li>
+                        <a href="/users/sign_up" class="btn btn-outline-info">会員登録</a>
+                    </li>
+                <% end %>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="float-btn vocabsNew" title="うちなーぐちを投稿">
+    <%= link_to new_vocab_path do %>
+        <i class="fas fa-pencil-alt"></i>
+    <% end %>
+</div>
+
+<script>
+    $('.float-btn.vocabsNew').tooltip();
+</script>
+
+<style>
+.ui-tooltip {
+    font-size: .6rem;
+    background: #777;
+    color: #fff;
+    padding: 5px 8px;
+    box-shadow: none;
+}
+</style>

@@ -1,114 +1,52 @@
-<div class="home">
-
-    <div class="home__container">
-        <div class="home__main">
-            
-            <div class="vocab">
-                <div class="vocab__item-list">
-                    <% @vocabs.each do |vocab| %>
-                        <div class="vocab__item" data-vocab-id="<%= vocab.id %>">
-                            <p class="vocab__time caption float-right"><%= time_ago_in_words(vocab.created_at) %>前</p>
-                            <h2 class="vocab__word"><%= link_to vocab.name, user_vocab_path(vocab.user, vocab) %></h2>
-                            <h3 class="vocab__translation"><%= vocab.translation %></h3>
-                            <div class="vocab__sentence"><%= simple_format h vocab.sentence %></div>
-                            <a href="/<%= vocab.user.username %>" data-vocab-username="<%= vocab.user.name %>" class="vocab__thumb">
-                                <% if vocab.user.avatar.present? %>
-                                    <%= image_tag vocab.user.avatar, alt: vocab.user.name %>
-                                <% else %>
-                                    <%= image_tag "user-image-default.png", alt: vocab.user.name %>
-                                <% end %>
-                                <span class="vocab__username">@<%= vocab.user.username %></span>
-                            </a>
-                
-                            <div class="vocab__btn-list">
-                                    <div class="vocab__btn vocab__btn--comment" title="コメントを見る"><i class="far fa-comments"></i><%= vocab.comments.count %></div>
-                                <%#= link_to root_path, class: 'vocab__btn vocab__btn--comment', title: 'コメントする' do %>
-                                    <%# <i class="far fa-comments"></i> %>
-                                <%# end %>
-                                <%= render 'vocabs/learning', vocab: vocab %>
-                            </div>
-
-                            <div class="vocab__comments">
-                                <div class="vocab__comments__item-list">
-                                    <% @comments = vocab.comments.order("created_at DESC")  %>
-                                    <% @comments.each do |comment| %>
-                                        <div class="vocab__comments_item">
-                                            <div><%= comment.user.name %></div>
-                                            <div><%= comment.content %></div>
-                                        </div>
-                                    <% end%>
-                                </div>
-                                <div class="vocab__comments__input">
-                                    <%= form_with(model: [vocab.user, vocab, @comment], method: :post) do |f| %>
-                                        <%= f.text_area :content %>
-                                        <%= f.submit "コメントを投稿"%>
-                                    <% end %>
-                                </div>
-                            </div>
-                        </div>
+<div class="vocab">
+    <div class="vocab__item-list">
+        <% @vocabs.each do |vocab| %>
+            <div class="vocab__item" data-vocab-id="<%= vocab.id %>">
+                <p class="vocab__time caption float-right"><%= time_ago_in_words(vocab.created_at) %>前</p>
+                <h2 class="vocab__word"><%= link_to vocab.name, user_vocab_path(vocab.user, vocab) %></h2>
+                <h3 class="vocab__translation"><%= vocab.translation %></h3>
+                <div class="vocab__sentence"><%= simple_format h vocab.sentence %></div>
+                <a href="/<%= vocab.user.username %>" data-vocab-username="<%= vocab.user.name %>" class="vocab__thumb">
+                    <% if vocab.user.avatar.present? %>
+                        <%= image_tag vocab.user.avatar, alt: vocab.user.name %>
+                    <% else %>
+                        <%= image_tag "user-image-default.png", alt: vocab.user.name %>
                     <% end %>
-                </div>
-            </div>
-        </div>
+                    <span class="vocab__username">@<%= vocab.user.username %></span>
+                </a>
     
-        <div class="home__aside">
-            <div class="data">
-                <div class="data__item">
-                    <div class="data__title">本日の投稿数</div>
-                    <div class="data__content"><%= @todays_vocabs.count %></div>
+                <div class="vocab__btn-list">
+                        <div class="vocab__btn vocab__btn--comment" title="コメントを見る"><i class="far fa-comments"></i><%= vocab.comments.count %></div>
+                    <%#= link_to root_path, class: 'vocab__btn vocab__btn--comment', title: 'コメントする' do %>
+                        <%# <i class="far fa-comments"></i> %>
+                    <%# end %>
+                    <%= render 'vocabs/learning', vocab: vocab %>
                 </div>
-            
-            </div>
 
-
-            <div class="rank">
-                <div class="rank__head"><i class="fas fa-crown"></i>うちなーぐちランキング</div>
-                <% @learning_ranks.each.with_index(1) do |rank, i| %>
-                    <div class="rank__item">
-                        <div class="rank__number"><span><%= i %></span>位</div>
-                        <%= link_to rank.name, vocab_path(rank.id), class: 'rank__title' %>
-                        <div class="rank__user-info">
-                            <a class="rank__thumb" href="/<%= rank.user.username %>">
-                                <% if rank.user.avatar.present? %>
-                                    <%= image_tag rank.user.avatar, alt: rank.user.name %>
-                                <% else %>
-                                    <%= image_tag "user-image-default.png", alt: rank.user.name %>
-                                <% end %>
-                            </a>
-                            <a href="/<%= rank.user.username %>" class="rank__username">@<%= rank.user.username %></a>
-                        </div>
-                        <div class="rank__feature"><span><%= rank.learnings.count %></span>人が<br>学習中</div>
+                <div class="vocab__comments">
+                    <% @comments = vocab.comments.order("created_at DESC")  %>
+                    <% if @comments.exists? %>
+                    <div class="vocab__comments__item-list">
+                        <% @comments.each do |comment| %>
+                            <div class="vocab__comments_item">
+                                <div><%= comment.user.name %></div>
+                                <div><%= comment.content %></div>
+                            </div>
+                        <% end%>
                     </div>
-                <% end %>
-            </div>
-            
-            <div class="rank">
-                <div class="rank__head"><i class="fas fa-crown"></i>ユーザーランキング</div>
-                <% @user_ranks.each.with_index(1) do |rank, i| %>
-                    <div class="rank__item">
-                        <div class="rank__number"><span><%= i %></span>位</div>
-                        <%= link_to rank.name, user_path(rank.username), class: 'rank__title' %>
-                        <div class="rank__user-info">
-                            <a class="rank__thumb" href="/<%= rank.username %>">
-                                <% if rank.avatar.present? %>
-                                    <%= image_tag rank.avatar, alt: rank.name %>
-                                <% else %>
-                                    <%= image_tag "user-image-default.png", alt: rank.name %>
-                                <% end %>
-                            </a>
-                            <a href="/<%= rank.username %>" class="rank__username">@<%= rank.username %></a>
-                        </div>
-                        <div class="rank__feature"><span><%= rank.vocabs.count %></span>件を<br>投稿済み</div>
+                    <% end %>
+                    <div class="vocab__comments__input">
+                        <%= form_with(model: [vocab.user, vocab, @comment], method: :post) do |f| %>
+                            <%= f.text_area :content %>
+                            <%= f.submit "コメントを投稿"%>
+                        <% end %>
                     </div>
-                <% end %>
+                </div>
             </div>
-        </div>
+        <% end %>
     </div>
-
 </div>
-
-
-
+    
 <script>
     $('.vocab__btn').tooltip();
 </script>

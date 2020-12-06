@@ -9,11 +9,11 @@ class VocabsController < ApplicationController
     gon.vocabs = @vocabs
     # gon.vocab = gon.vocabs
 
-    @learning_ranks = Vocab.create_learning_ranks
+    # @learning_ranks = Vocab.create_learning_ranks
 
-    @user_ranks = User.create_user_ranks
+    # @user_ranks = User.create_user_ranks
 
-    @todays_vocabs = Vocab.where(created_at: Time.now.all_day)
+    # @todays_vocabs = Vocab.where(created_at: Time.now.all_day)
 
     @comment = Comment.new
 

@@ -74,8 +74,9 @@
 }
 
 .vocab__btn {
-    display: block;
-    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
     transition: 0.2s cubic-bezier(0.4, 0.1, 0.3, 1);
     cursor: pointer;
     &:hover {
@@ -84,6 +85,10 @@
     }
     &+& {
         margin-left: 20px;
+    }
+    svg {
+        margin-right: 6px;
+        font-size: 1.4em;
     }
 }
 
@@ -118,5 +123,26 @@
         max-height: auto;
         // height: 400px;
         height: auto;
+        margin-top: 16px;
+    }
+    &__item-list {
+        padding: 16px 8px;
+    }
+    &__item+&__item{
+        margin-top: 16px;
+    }
+    form {
+        width: 100%;
+        padding: 16px 8px;
+        display: flex;
+        align-items: center;
+    }
+    textarea {
+        width: 70%;
+        height: 80px;
+        margin-right: 16px;
+    }
+    input[name="submit"] {
+        width: 28%;
     }
 }

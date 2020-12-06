@@ -6,6 +6,17 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  before_action :sidebar
+
+
+  def sidebar
+    @learning_ranks = Vocab.create_learning_ranks
+
+    @user_ranks = User.create_user_ranks
+
+    @todays_vocabs = Vocab.where(created_at: Time.now.all_day)
+  end
+
   protected
 
     def configure_permitted_parameters

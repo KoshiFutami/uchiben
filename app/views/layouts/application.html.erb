@@ -6,7 +6,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css">
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_pack_tag 'application' %>
@@ -18,8 +19,23 @@
   <body>
     <%= render 'layouts/notifications' %>
     <%= render 'lib/header' %>
-    
-    <%= yield %>
+
+  <div class="home">
+
+    <div class="home__container">
+        <div class="home__main">
+            
+          <%= yield %>
+            
+        </div>
+
+        <%= render 'lib/sidebar' %>
+
+    </div>
+
+  </div>
+
+
     
   </body>
 </html>

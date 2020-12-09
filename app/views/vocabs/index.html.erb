@@ -27,20 +27,30 @@
                     <% @comments = vocab.comments.order("created_at DESC")  %>
                     <% if @comments.exists? %>
                     <div class="vocab__comments__item-list">
-                        <% @comments.each do |comment| %>
-                            <div class="vocab__comments_item">
-                                <div><%= comment.user.name %></div>
-                                <div><%= comment.content %></div>
+                        <% @comments.limit(3).each do |comment| %>
+                            <div class="vocab__comments__item">
+                                <div class="vocab__comments__username">@<%= comment.user.username %></div>
+                                <div class="vocab__comments__content"><%= comment.content %></div>
+                                <div class="vocab__comments__time"><%= time_ago_in_words(comment.created_at) %>前</div>
                             </div>
                         <% end%>
                     </div>
                     <% end %>
-                    <div class="vocab__comments__input">
-                        <%= form_with(model: [vocab.user, vocab, @comment], method: :post) do |f| %>
-                            <%= f.text_area :content %>
-                            <%= f.submit "コメントを投稿"%>
+                    <% if @comments.count > 3 %>
+                    <div class="vocab__comments__link">
+                        <%= link_to user_vocab_path(vocab.user, vocab, anchor: 'Comments') do %>
+                        すべてのコメントを見る（全<%= @comments.count %>件）
                         <% end %>
                     </div>
+                    <% end %>
+                    <% if user_signed_in? %>
+                    <div class="vocab__comments__input">
+                        <%= form_with(model: [vocab.user, vocab, @comment], method: :post, local: true) do |f| %>
+                            <%= f.text_area :content, placeholder: vocab.user.name + 'さんの投稿にコメント' %>
+                            <%= f.submit "投稿" %>
+                        <% end %>
+                    </div>
+                    <% end %>
                 </div>
             </div>
         <% end %>

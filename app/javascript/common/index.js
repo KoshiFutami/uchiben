@@ -41,7 +41,35 @@ $(function(){
     //     $(this).parent().next(commentArea).toggleClass("is-active");
     //     $(this).prop('title', 'コメント欄を非表示');
     // });
-
-
+ 
 });
 
+
+// ページ内リンクのヘッダー高さ分の調整
+$(function(){
+    let headerHeight = $('.header').outerHeight();
+    $('a[href^="#"').on('click', function(){
+        let speed = 800;
+        let href = $(this).attr("href");
+        let target = $(href == "#" || href == "" ? 'html' : href);
+        let position = target.offset().top-headerHeight;
+        $('body, html').animate({scrollTop: position}, speed, 'swing');
+        return false;
+    });
+});
+
+// ヘッダーのドロップダウンメニュー
+$(function(){
+    let btnOpenDropdown = $('#btn-open-dropdown');
+    let dropdownMenu = $('.header__dropdown');
+    let overlay = $('.header__overlay');
+    btnOpenDropdown.on('click', function(){
+        dropdownMenu.addClass('is-active');
+        overlay.addClass('is-active');
+        
+        overlay.on('click', function(){
+            dropdownMenu.removeClass('is-active');
+            $(this).removeClass('is-active');
+        });
+    });
+});

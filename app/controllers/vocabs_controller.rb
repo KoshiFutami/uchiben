@@ -3,17 +3,11 @@ class VocabsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @vocabs = Vocab.all.recent
+    @vocabs = Vocab.all.includes(:user).recent
     # @vocabs = Vocab.all.order(created_at: "DESC")
     
-    gon.vocabs = @vocabs
+    # gon.vocabs = @vocabs
     # gon.vocab = gon.vocabs
-
-    # @learning_ranks = Vocab.create_learning_ranks
-
-    # @user_ranks = User.create_user_ranks
-
-    # @todays_vocabs = Vocab.where(created_at: Time.now.all_day)
 
     @comment = Comment.new
 
@@ -95,7 +89,7 @@ class VocabsController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @vocab.comments 
+    @comments = @vocab.comments.includes(:user) 
   end
 
   def destroy

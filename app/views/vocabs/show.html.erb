@@ -8,18 +8,22 @@
     <%= link_to "削除", vocab_path(@vocab), method: :delete , class: 'btn btn-outline-danger' %>
 <% end %>
 
-<div>コメントする</div>
 
-<%= form_with(model: [@vocab.user, @vocab, @comment], method: :post) do |f| %>
-    <%= f.text_area :content %>
-    <%= f.submit '投稿する'%>
-<% end %>
-
-<div>コメント一覧</div>
+<div id="Comments">コメント一覧</div>
 
 <% @comments.each do |comment| %>
     <p><%= comment.content %></p>
-    <p><%= link_to "削除", user_vocab_comment_path(@vocab.user, @vocab, comment), method: :delete %></p>
+    <% if user_signed_in? && comment.user_id == current_user.id %>
+        <p><%= link_to "削除", user_vocab_comment_path(@vocab.user, @vocab, comment), method: :delete %></p>
+    <% end %>
+<% end %>
+
+
+<div>コメントする</div>
+
+<%= form_with(model: [@vocab.user, @vocab, @comment], method: :post, local: true) do |f| %>
+    <%= f.text_area :content %>
+    <%= f.submit '投稿する'%>
 <% end %>
 
 <button class="btn btn-secondary" onClick="history.back();">戻る</button>

@@ -6,7 +6,8 @@ class CommentsController < ApplicationController
 
     if @comment.save
       # redirect_to user_vocab_path(@vocab.user, @vocab)
-      redirect_back(fallback_location: root_path) 
+      flash[:notice] = 'コメントが投稿されました。'
+      redirect_back(fallback_location: root_path)
     else
       # redirect_to user_vocab_path(@vocab.user, @vocab)
       redirect_back(fallback_location: root_path) 

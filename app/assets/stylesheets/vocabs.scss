@@ -128,21 +128,61 @@
     &__item-list {
         padding: 16px 8px;
     }
-    &__item+&__item{
-        margin-top: 16px;
+    &__item {
+        position: relative;
+        padding: 8px 0;
+        &+.vocab__comments__item {
+            border-top: 1px solid #eeeeef;
+        }
+    }
+    &__time {
+        position: absolute;
+        right: 0;
+        top: 8px;
+        font-size: .7rem;
+        color: #666;
+    }
+    &__username {
+        font-size: .8rem;
+        color: #666;
+    }
+    &__content {
+        font-size: .9rem;
+    }
+    &__link {
+        padding: 4px 8px;
+        text-align: right;
+        a {
+            font-size: .85rem;
+            padding: 4px 0;
+        }
+        a, a:hover {
+            color: #2788bd;
+        }
     }
     form {
         width: 100%;
         padding: 16px 8px;
-        display: flex;
-        align-items: center;
+        // display: flex;
+        // align-items: center;
     }
     textarea {
-        width: 70%;
+        width: 90%;
         height: 80px;
-        margin-right: 16px;
+        margin: 0 auto;
+        padding: 8px;
+        font-size: .9rem;
+        display: block;
     }
-    input[name="submit"] {
-        width: 28%;
+    input[type="submit"] {
+        width: 100px;
+        background: #F6B643;
+        color: #fff;
+        padding: 8px 0;
+        border: 2px solid transparent;
+        border-radius: 99rem;
+        margin: 16px auto 0;
+        display: block;
+        text-align: center;
     }
 }

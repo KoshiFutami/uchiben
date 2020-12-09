@@ -1,5 +1,6 @@
 body {
     padding-top: 55px; // headerの高さ分、余白を入れておく
+    position: relative;
 }
 
 .float-btn {
@@ -29,12 +30,13 @@ body {
 
 .header {
     background: #E6F9FE;
+    background: #3596DC;
     box-shadow: 0 3px 6px rgba(#9DE5F4, 0.3);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 55px;
+    // height: 55px;
     z-index: 2;
     &__inner {
         max-width: 1000px;
@@ -44,18 +46,17 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 16px;
+        padding: 8px 16px;
     }
     &__logo {
-        color: #1C5C8E;
-        width: 200px;
-        font-weight: bold;
+        width: 180px;
         a {
-            color: #1C5C8E;
-            font-size: 1.4rem;
+            display: block;
             &:hover {
-                text-decoration: none;
-                color: unset;
+                opacity: .8;
+            }
+            img {
+                width: 100%;
             }
         }
     }
@@ -65,14 +66,37 @@ body {
             list-style-type: none;
             padding: 0;
             margin: 0;
-            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
         li {
             display: inline-block;
             font-size: .9rem;
         }
         li+li {
-            margin-left: 10px;
+            margin-left: 16px;
+        }
+        a {
+            color: #fff;
+            padding: 8px 4px;
+            display: block;
+            font-size: .9rem;
+        }
+        a:hover {
+            color: #fff;
+            opacity: .7;
+        }
+        &__signup {
+            background: #fff;
+            border-radius: 33px;
+            overflow: hidden;
+            a {
+                padding: 8px 16px;
+            }
+            a, a:hover {
+                color: #2a87c9;
+            }
         }
     }
     &__thumb {
@@ -81,17 +105,62 @@ body {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
+        box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.8);
+        box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.8);
     }
-    #btn-open-nav {
+    #btn-open-dropdown {
+        color: #fff;
         cursor: pointer;
+        transition: .2s;
         &:hover {
             img {
                 box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 1);
             }
             svg {
-                color: #ED3833;
+                opacity: .8;
             }
+        }
+    }
+    &__dropdown {
+        position: absolute;
+        top: 80px;
+        right: 8px;
+        background: #fff;
+        border: 1px solid #c6c6c6;
+        padding: 16px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10;
+        &.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        a {
+            display: block;
+            padding: 8px 0;
+            font-size: .9rem;
+            text-align: center;
+        }
+        a+a {
+            border-top: 1px solid #eeeeef;
+        }
+    }
+    &__overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 8;
+        // display: none;
+        opacity: 0;
+        pointer-events: none;
+        background: rgba(0,0,0,0.5);
+        transition: .3s ease-in-out;
+        &.is-active {
+            // display: block;
+            pointer-events: auto;
+            opacity: 1;
         }
     }
 }

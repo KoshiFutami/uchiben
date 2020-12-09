@@ -1,7 +1,9 @@
 <header class="header">
     <div class="header__inner">
         <div class="header__logo">
-            <%= link_to "うちなー塾", root_path %>
+            <%= link_to root_path do %>
+                <%= image_tag "logo.png" %>
+            <% end %>
         </div>
         
         <nav class="header__nav">
@@ -16,17 +18,15 @@
                             <i class="fas fa-pencil-alt"></i>
                         <% end %>
                     </li>
-                    <li>
-                        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-                    </li>
-                    <li id="btn-open-nav">
+                    <li id="btn-open-dropdown">
                     <% if current_user.avatar.present? %>
                         <%= image_tag current_user.avatar, alt: current_user.name, class: "header__thumb" %>
                     <% else %>
                         <%= image_tag "user-image-default.png", alt: current_user.name, class: "header__thumb" %>
                     <% end %>
+                    <% if user_signed_in? %>
                         <i class="fas fa-ellipsis-v"></i>
-                        <a href="/<%= current_user.username %>"><i class="fas fa-ellipsis-v"></i></a>
+                    <% end %>
                     </li>
                 <% else %>
                     <li>
@@ -35,13 +35,21 @@
                     <li>
                         <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>
                     </li>
-                    <li>
-                        <a href="/users/sign_up" class="btn btn-outline-info">会員登録</a>
+                    <li class="header__nav__signup">
+                        <a href="/users/sign_up">会員登録</a>
                     </li>
                 <% end %>
             </ul>
         </nav>
     </div>
+    <% if user_signed_in? %>
+    <div class="header__dropdown">
+        <%= link_to "マイページ", user_path(current_user.username) %>
+        <%= link_to "学習する", user_path(current_user.username) %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    </div>
+    <div class="header__overlay"></div>
+    <% end %>
 </header>
 
 <div class="float-btn vocabsNew" title="うちなーぐちを投稿">

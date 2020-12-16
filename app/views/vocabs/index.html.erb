@@ -25,7 +25,19 @@
 
                 <div class="vocab__comments">
                     <% @comments = vocab.comments.order("created_at DESC")  %>
+
                     <% if @comments.exists? %>
+
+                    <% # ajaxで書き換え %>
+                    <div class="vocab__comments__item-list" id="vocab_<%= vocab.id %>_comments_list">
+                        <% @comments.limit(3).each do |comment| %>
+                            <%= render 'comments/comments_item', {comment: comment} %>
+                        <% end%>
+                    </div>
+
+<%
+=begin
+%>
                     <div class="vocab__comments__item-list">
                         <% @comments.limit(3).each do |comment| %>
                             <div class="vocab__comments__item">
@@ -35,7 +47,12 @@
                             </div>
                         <% end%>
                     </div>
+<%
+=end
+%>
+
                     <% end %>
+
                     <% if @comments.count > 3 %>
                     <div class="vocab__comments__link">
                         <%= link_to user_vocab_path(vocab.user, vocab, anchor: 'Comments') do %>
@@ -45,8 +62,8 @@
                     <% end %>
                     <% if user_signed_in? %>
                     <div class="vocab__comments__input">
-                        <%= form_with(model: [vocab.user, vocab, @comment], method: :post, local: true) do |f| %>
-                            <%= f.text_area :content, placeholder: vocab.user.name + 'さんの投稿にコメント' %>
+                        <%= form_with(model: [vocab.user, vocab, @comment], method: :post, remote: true) do |f| %>
+                            <%= f.text_area :content, id: "vocab_#{vocab.id}_comments_textarea", placeholder: vocab.user.name + 'さんの投稿にコメント' %>
                             <%= f.submit "投稿" %>
                         <% end %>
                     </div>

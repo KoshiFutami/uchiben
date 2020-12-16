@@ -1,0 +1,9 @@
+
+
+$('#vocab_<%= @vocab.id %>_comments_list').prepend("<%= j(render 'comments_item',{ comment: @comment }) %>");
+$('#vocab_<%= @vocab.id %>_comments_textarea').val();
+
+
+
+//$('.vocab__comments__item-list').prepend("<%= j(render 'comments_item',{ comment: @comment }) %>");
+//$('#comments_textarea').val();

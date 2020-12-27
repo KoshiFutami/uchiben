@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+
   def create
     @vocab = Vocab.find(params[:vocab_id])
     @comment = @vocab.comments.new(comment_params)
@@ -32,5 +33,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
+    # params.permit(:content)
   end
 end

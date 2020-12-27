@@ -1,6 +1,7 @@
 
 
 $('#vocab_<%= @vocab.id %>_comments_list').prepend("<%= j(render 'comments_item',{ comment: @comment }) %>");
+$('.vocab_<%= @vocab.id %>_comments_count').html("<%= @vocab.comments.count %>");
 $('#vocab_<%= @vocab.id %>_comments_textarea').val("");
 
 

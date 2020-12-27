@@ -16,7 +16,7 @@
                 </a>
     
                 <div class="vocab__btn-list">
-                        <div class="vocab__btn vocab__btn--comment" title="コメントを見る"><i class="far fa-comments"></i><%= vocab.comments.count %></div>
+                        <div class="vocab__btn vocab__btn--comment" title="コメントを見る"><i class="far fa-comments"></i><span class="vocab_<%= vocab.id %>_comments_count" id="vocab_<%= vocab.id %>_comments_count"><%= vocab.comments.count %></span></div>
                     <%#= link_to root_path, class: 'vocab__btn vocab__btn--comment', title: 'コメントする' do %>
                         <%# <i class="far fa-comments"></i> %>
                     <%# end %>
@@ -56,7 +56,7 @@
                     <% if @comments.count > 3 %>
                     <div class="vocab__comments__link">
                         <%= link_to user_vocab_path(vocab.user, vocab, anchor: 'Comments') do %>
-                        すべてのコメントを見る（全<%= @comments.count %>件）
+                        すべてのコメントを見る（全<span class="vocab_<%= vocab.id %>_comments_count"><%= @comments.count %></span>件）
                         <% end %>
                     </div>
                     <% end %>

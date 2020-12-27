@@ -21,11 +21,16 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    # ajaxで書き換え
     @vocab = Vocab.find(params[:vocab_id])
     @comment = Comment.find(params[:id])
-    @comment.destroy
-    # redirect_to user_vocab_path(@vocab.user, @vocab)
-    redirect_back(fallback_location: root_path) 
+    @comment.destroy!
+
+    # @vocab = Vocab.find(params[:vocab_id])
+    # @comment = Comment.find(params[:id])
+    # @comment.destroy
+    # # redirect_to user_vocab_path(@vocab.user, @vocab)
+    # redirect_back(fallback_location: root_path) 
   end
 
 

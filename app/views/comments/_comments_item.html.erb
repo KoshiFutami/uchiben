@@ -1,5 +1,8 @@
-<div class="vocab__comments__item">
+<div class="vocab__comments__item" id="comment_<%= comment.id %>">
     <div class="vocab__comments__username">@<%= comment.user.username %></div>
     <div class="vocab__comments__content"><%= comment.content %></div>
     <div class="vocab__comments__time"><%= time_ago_in_words(comment.created_at) %>前</div>
+    <% if user_signed_in? && comment.user_id == current_user.id %>
+    <div><%= link_to "削除", user_vocab_comment_path(comment.user, comment.vocab, comment), method: :delete, remote: true, data: { confirm: '本当にコメントを削除しますか？'} %></div>
+    <% end %>
 </div>

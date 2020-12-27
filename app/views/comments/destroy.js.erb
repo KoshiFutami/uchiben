@@ -1,0 +1,2 @@
+$('#comment_<%= @comment.id %>').remove();
+$('.vocab_<%= @vocab.id %>_comments_count').html("<%= @vocab.comments.count %>");

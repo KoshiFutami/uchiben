@@ -11,19 +11,23 @@
 
 <div id="Comments">コメント一覧</div>
 
+<div class="vocab__comments__item-list" id="vocab_<%= @vocab.id %>_comments_list">
 <% @comments.each do |comment| %>
-    <p><%= comment.content %></p>
-    <% if user_signed_in? && comment.user_id == current_user.id %>
-        <p><%= link_to "削除", user_vocab_comment_path(@vocab.user, @vocab, comment), method: :delete %></p>
-    <% end %>
-<% end %>
+    <%= render 'comments/comments_item', {comment: comment} %>
+<% end%>
+</div>
 
 
 <div>コメントする</div>
 
-<%= form_with(model: [@vocab.user, @vocab, @comment], method: :post, local: true) do |f| %>
-    <%= f.text_area :content %>
-    <%= f.submit '投稿する'%>
+<% if user_signed_in? %>
+<div class="vocab__comments__input">
+    <%= form_with(model: [@vocab.user, @vocab, @comment], method: :post, remote: true) do |f| %>
+        <%= f.text_area :content, id: "comment_textarea", placeholder: @vocab.user.name + 'さんの投稿にコメント' %>
+        <%= f.submit "投稿" %>
+    <% end %>
+</div>
 <% end %>
+
 
 <button class="btn btn-secondary" onClick="history.back();">戻る</button>

@@ -24,7 +24,9 @@
         </div>
     <% end %>
 
+    <%# このユーザーが投稿したうちなーぐち一覧 %>
     <%= render 'shared/vocab_list', vocabs: @user.vocabs %>
+
 
     <div class="col-12 col-md-10 col-lg-8 mx-auto">
         <h4 class="text-center h4"><%= @user.name %>が学習中のうちなーぐち（全<%= @learnings.count %>件）</h4>

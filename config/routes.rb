@@ -37,9 +37,9 @@ Rails.application.routes.draw do
   resources :vocabs do
     collection do
       get :search
-      get :learnings
+      # get :learnings
     end
-    resource :learnings, only: %i[create destroy]
+    resource :learnings, only: [:create, :destroy]
     # resources :comments, only: [:create, :destroy]
   end
 

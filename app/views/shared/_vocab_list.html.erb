@@ -20,7 +20,9 @@
                     <%#= link_to root_path, class: 'vocab__btn vocab__btn--comment', title: 'コメントする' do %>
                         <%# <i class="far fa-comments"></i> %>
                     <%# end %>
-                    <%= render 'vocabs/learning', vocab: vocab %>
+                    <div class="vocab__learning" id="vocab_learning_<%= vocab.id %>">
+                        <%= render 'vocabs/learning', vocab: vocab %>
+                    </div>
                 </div>
 
                 <div class="vocab__comments">

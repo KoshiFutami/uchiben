@@ -11,6 +11,9 @@ class VocabsController < ApplicationController
 
     @comment = Comment.new
 
+
+
+
   end
 
   def new

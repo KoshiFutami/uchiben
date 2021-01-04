@@ -7,7 +7,67 @@
     
     </div>
 
+    <%
+    # 同一順位対応のランキングを表示
+    lastCount = 0
+    j = 1
+    %>
 
+    <div class="rank">
+        <div class="rank__head"><i class="fas fa-crown"></i>うちなーぐちランキング</div>
+        <% @learning_ranks.each.with_index(1) do |rank, i| %>
+            <% if i == 1 %>
+                <% lastCount = rank.learnings.count %>
+            <% end %>
+            <% if rank.learnings.count != lastCount %>
+                <% j = i %>
+
+                <div class="rank__item">
+                    <div class="rank__number"><span><%= j %></span>位</div>
+                    <%= link_to rank.name, user_vocab_path(rank.user, rank.id), class: 'rank__title' %>
+                    <div class="rank__user-info">
+                        <a class="rank__thumb" href="/<%= rank.user.username %>">
+                            <% if rank.user.avatar.present? %>
+                                <%= image_tag rank.user.avatar, alt: rank.user.name %>
+                            <% else %>
+                                <%= image_tag "user-image-default.png", alt: rank.user.name %>
+                            <% end %>
+                        </a>
+                        <a href="/<%= rank.user.username %>" class="rank__username">@<%= rank.user.username %></a>
+                    </div>
+                    <div class="rank__feature"><span><%= rank.learnings.count %></span>人が<br>学習中</div>
+                </div>
+
+                <% lastCount = rank.learnings.count %>
+
+            <% else %>
+
+                <% lastCount = rank.learnings.count %>
+
+                <div class="rank__item">
+                    <div class="rank__number"><span><%= j %></span>位</div>
+                    <%= link_to rank.name, user_vocab_path(rank.user, rank.id), class: 'rank__title' %>
+                    <div class="rank__user-info">
+                        <a class="rank__thumb" href="/<%= rank.user.username %>">
+                            <% if rank.user.avatar.present? %>
+                                <%= image_tag rank.user.avatar, alt: rank.user.name %>
+                            <% else %>
+                                <%= image_tag "user-image-default.png", alt: rank.user.name %>
+                            <% end %>
+                        </a>
+                        <a href="/<%= rank.user.username %>" class="rank__username">@<%= rank.user.username %></a>
+                    </div>
+                    <div class="rank__feature"><span><%= rank.learnings.count %></span>人が<br>学習中</div>
+                </div>
+
+            <% end %>
+
+        <% end %>
+    </div>
+
+<%
+=begin
+%>
     <div class="rank">
         <div class="rank__head"><i class="fas fa-crown"></i>うちなーぐちランキング</div>
         <% @learning_ranks.each.with_index(1) do |rank, i| %>
@@ -28,7 +88,67 @@
             </div>
         <% end %>
     </div>
-    
+<%
+=end
+%>
+
+    <%
+    # 同一順位対応のランキングを表示
+    lastCount = 0
+    j = 1
+    %>
+
+    <div class="rank">
+        <div class="rank__head"><i class="fas fa-crown"></i>ユーザーランキング</div>
+        <% @user_ranks.each.with_index(1) do |rank, i| %>
+            <% if i == 1 %>
+                <% lastCount = rank.vocabs.count %>
+            <% end %>
+            <% if rank.vocabs.count != lastCount %>
+                <% j = i %>
+                <div class="rank__item">
+                    <div class="rank__number"><span><%= j %></span>位</div>
+                    <%= link_to rank.name, user_path(rank.username), class: 'rank__title' %>
+                    <div class="rank__user-info">
+                        <a class="rank__thumb" href="/<%= rank.username %>">
+                            <% if rank.avatar.present? %>
+                                <%= image_tag rank.avatar, alt: rank.name %>
+                            <% else %>
+                                <%= image_tag "user-image-default.png", alt: rank.name %>
+                            <% end %>
+                        </a>
+                        <a href="/<%= rank.username %>" class="rank__username">@<%= rank.username %></a>
+                    </div>
+                    <div class="rank__feature"><span><%= rank.vocabs.count %></span>件を<br>投稿済み</div>
+                </div>
+                <% lastCount = rank.vocabs.count %>
+
+            <% else %>
+
+                <% lastCount = rank.vocabs.count %>
+
+                <div class="rank__item">
+                    <div class="rank__number"><span><%= j %></span>位</div>
+                    <%= link_to rank.name, user_path(rank.username), class: 'rank__title' %>
+                    <div class="rank__user-info">
+                        <a class="rank__thumb" href="/<%= rank.username %>">
+                            <% if rank.avatar.present? %>
+                                <%= image_tag rank.avatar, alt: rank.name %>
+                            <% else %>
+                                <%= image_tag "user-image-default.png", alt: rank.name %>
+                            <% end %>
+                        </a>
+                        <a href="/<%= rank.username %>" class="rank__username">@<%= rank.username %></a>
+                    </div>
+                    <div class="rank__feature"><span><%= rank.vocabs.count %></span>件を<br>投稿済み</div>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+
+<%
+=begin
+%>  
     <div class="rank">
         <div class="rank__head"><i class="fas fa-crown"></i>ユーザーランキング</div>
         <% @user_ranks.each.with_index(1) do |rank, i| %>
@@ -49,4 +169,8 @@
             </div>
         <% end %>
     </div>
+<%
+=end
+%>
+
 </div>

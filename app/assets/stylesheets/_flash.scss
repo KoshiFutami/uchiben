@@ -1,5 +1,14 @@
 .flash {
-    padding: 10px;
+    height: 72px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: $spacing-1 $spacing-2;
 }
 .notice {
     color: #333;

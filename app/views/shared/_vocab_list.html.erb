@@ -1,6 +1,6 @@
 <div class="vocab">
     <div class="vocab__item-list">
-        <% vocabs.each do |vocab| %>
+        <% @vocabs.each do |vocab| %>
             <div class="vocab__item" data-vocab-id="<%= vocab.id %>">
                 <p class="vocab__time caption float-right"><%= time_ago_in_words(vocab.created_at) %>前</p>
                 <h2 class="vocab__word"><%= link_to vocab.name, user_vocab_path(vocab.user, vocab) %></h2>

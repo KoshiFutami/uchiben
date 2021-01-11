@@ -1,11 +1,2 @@
-<%= render 'form' %>
 <%# 全ユーザーのうちなーぐち一覧 %>
-<%#= render 'shared/vocab_list', vocabs: @vocabs %>
-
-<div class="vocab">
-    <div class="vocab__item-list">
-        <% vocabs.each do |vocab| %>
-            <%= render 'shared/vocab_item', vocab: vocab %>
-        <% end %>
-    </div>
-</div>
+<%= render 'shared/vocab_list', vocabs: @vocabs %>

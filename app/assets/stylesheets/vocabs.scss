@@ -9,6 +9,19 @@
     background: #fff;
     border: 1px solid #eeeeef;
     border-radius: 4px;
+    .vocab__head+& {
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+    }
+}
+.vocab__head {
+    border: 1px solid #eeeeef;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    background: #fff;
+    font-size: 1.2rem;
+    padding: 16px 18px;
+    margin-top: $spacing-3;
 }
 .vocab__item {
     width: 100%;

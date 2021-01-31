@@ -1,46 +1,44 @@
-<div class="row">
-    <div class="col-12 col-md-8 col-md-6 mx-auto">
-        <div class="user-detail">
-            <% if @user.avatar.present? %>
-                <%= link_to @user.avatar, 'data-lightbox': @user.avatar do %>
-                    <%= image_tag @user.avatar, alt: @user.name, class: "user-detail__image" %>
-                <% end %>
-            <% else %>
-                <%= image_tag "user-image-default.png", alt: @user.name, class: "user-detail__image" %>
+<div class="user-container">
+    <div class="user-profile">
+        <% if @user.avatar.present? %>
+            <%= link_to @user.avatar, 'data-lightbox': @user.avatar do %>
+                <%= image_tag @user.avatar, alt: @user.name, class: "user-profile__image" %>
             <% end %>
-            <div class="user-detail__info">
-                <h2 class=user-detail__name><%= @user.name %><span class="caption ml-3 font-weight-normal">@<%= @user.username %></span></h2>
-                <div class="user-detail__profile"><%= simple_format h @user.profile %></div>
-                <div class="user-detail__count">投稿したうちなーぐち <%= @vocabs.count %>件 / 学習中のうちなーぐち <%= @learnings.count %>件</div>
-            </div>
+        <% else %>
+            <%= image_tag "user-image-default.png", alt: @user.name, class: "user-profile__image" %>
+        <% end %>
+        <div class="user-profile__info">
+            <h2 class=user-profile__name><%= @user.name %><span class="caption ml-3 font-weight-normal">@<%= @user.username %></span></h2>
+            <div class="user-profile__profile"><%= simple_format h @user.profile %></div>
+            <div class="user-profile__count">投稿したうちなーぐち <%= @vocabs.count %>件 / 学習中のうちなーぐち <%= @learnings.count %>件</div>
         </div>
+        <% if current_user && current_user.id == @user.id %>
+            <div class="user-profile__link">
+                <%= link_to "プロフィールを編集する", edit_user_registration_path %>
+            </div>
+        <% end %>
     </div>
     
-    <% if current_user && current_user.id == @user.id %>
-        <div class="col-12 col-md-10 col-lg-8 mx-auto">
-            <p class="text-center mt-4">
-                <%= link_to "プロフィールを編集する", edit_user_registration_path, class: 'btn btn-outline-primary font-sm' %>
-            </p>
-        </div>
-    <% end %>
 
     <%# このユーザーが投稿したうちなーぐち一覧 %>
-    <%= render 'shared/vocab_list', vocabs: @user.vocabs %>
+    <div class="user-vocabs">
+        <%= render 'shared/vocab_list', { vocabs: @user.vocabs } %>
+    </div>
+    
 
-
-    <div class="col-12 col-md-10 col-lg-8 mx-auto">
-        <h4 class="text-center h4"><%= @user.name %>が学習中のうちなーぐち（全<%= @learnings.count %>件）</h4>
-        <div class="vocab-list">
+    <div class="user-learning">
+        <div class="vocab__head"><%= @user.name %>が学習しているうちなーぐち<span class="font-sm">（全<%= @learnings.count %>件）</span></div>
+        <div class="vocab__item-list">
             <% @learnings.each do |learning| %>
                 <div class="vocab__item" data-vocab-id="<%= learning.vocab.id %>">
-                    <p class="caption float-right text-right">
+                    <p class="vocab_time caption float-right text-right">
                         <%= time_ago_in_words(learning.vocab.created_at) %>前に投稿<br>
                         <%= time_ago_in_words(learning.created_at) %>前に学習スタート
                     </p>
-                    <h2 class="vocab__name"><%= link_to learning.vocab.name, vocab_path(learning.vocab) %></h2>
+                    <h2 class="vocab__word"><%= link_to learning.vocab.name, vocab_path(learning.vocab) %></h2>
                     <h3 class="vocab__translation"><%= learning.vocab.translation %></h3>
                     <div class="vocab__sentence"><%= simple_format h learning.vocab.sentence %></div>
-                    <a href="/<%= learning.vocab.user.username %>" data-vocab-username="<%= learning.vocab.user.name %>" class="vocab__thumb-link float-left mt-3">
+                    <a href="/<%= learning.vocab.user.username %>" data-vocab-username="<%= learning.vocab.user.name %>" class="vocab__thumb">
                         <% if learning.vocab.user.avatar.present? %>
                             <%= image_tag learning.vocab.user.avatar, alt: learning.vocab.user.name, class: 'vocab__thumb' %>
                         <% else %>
@@ -49,17 +47,55 @@
                         <span class="vocab__username">@<%= learning.vocab.user.username %></span>
                     </a>
 
-                    <div class="mt-5 text-right">
-                        <%= render 'vocabs/learning', vocab: learning.vocab %>
-                        <%= link_to "コメント", root_path, class: 'btn btn-info' %>
-                        <%= link_to "詳細", "/#{learning.vocab.user.username}/vocabs/#{learning.vocab.id}", class: 'btn btn-secondary' %>
+                    <div class="vocab__btn-list">
+                        <div class="vocab__btn vocab__btn--comment" title="コメントを見る"><i class="far fa-comments"></i><span class="vocab_<%= learning.vocab.id %>_comments_count" id="vocab_<%= learning.vocab.id %>_comments_count"><%= learning.vocab.comments.count %></span></div>
+                    <%#= link_to root_path, class: 'vocab__btn vocab__btn--comment', title: 'コメントする' do %>
+                        <%# <i class="far fa-comments"></i> %>
+                    <%# end %>
+                        <div class="vocab__learning" id="vocab_learning_<%= learning.vocab.id %>">
+                            <%= render 'vocabs/learning', vocab: learning.vocab %>
+                        </div>
                     </div>
+
+                    <div class="vocab__comments">
+                        <% @comments = learning.vocab.comments.order("created_at DESC")  %>
+
+
+                        <% # ajaxで書き換え %>
+                        <div class="vocab__comments__item-list" id="vocab_<%= learning.vocab.id %>_comments_list">
+                        <% if @comments.exists? %>
+                            <% @comments.limit(3).each do |comment| %>
+                                <%= render 'comments/comments_item', {comment: comment} %>
+                            <% end%>
+                        <% end %>
+                        </div>
+
+
+                        <% if @comments.count > 3 %>
+                        <div class="vocab__comments__link">
+                            <%= link_to user_vocab_path(learning.vocab.user, learning.vocab, anchor: 'Comments') do %>
+                            すべてのコメントを見る（全<span class="vocab_<%= learning.vocab.id %>_comments_count"><%= @comments.count %></span>件）
+                            <% end %>
+                        </div>
+                        <% end %>
+
+                        <% if user_signed_in? %>
+                        <div class="vocab__comments__input">
+                            <%= form_with(model: [learning.vocab.user, learning.vocab, @comment], method: :post, remote: true) do |f| %>
+                                <%= f.text_area :content, id: "vocab_#{learning.vocab.id}_comments_textarea", placeholder: learning.vocab.user.name + 'さんの投稿にコメント' %>
+                                <%= f.submit "投稿" %>
+                            <% end %>
+                        </div>
+                        <% end %>
+
+                    </div>
+
                 </div>
             <% end %>
         </div>
     </div>
 
-    <div class="col-12 col-md-10 col-lg-8 mx-auto">
-        <p class="text-right"><%= link_to "戻る", :back %></p>
+    <div class="page-back">
+        <%= link_to "戻る", :back %>
     </div>
 </div>

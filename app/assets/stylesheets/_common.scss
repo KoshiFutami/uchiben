@@ -8,10 +8,11 @@ html {
 }
 * {
     font-feature-settings: "palt";
+    letter-spacing: .02em;
 }
 .bg-white {
     background: #fff;
-    padding: 30px 16px;
+    padding: 30px 16px; 
 }
 .caption {
     color: rgb(101, 119, 134);
@@ -37,4 +38,15 @@ html {
     font-weight: bold;
     text-align: center;
     font-size: 1.3rem;
+}
+.page-back {
+    margin-top: $spacing-3;
+    text-align: right;
+    a:hover {
+        color: #007bff; 
+        text-decoration: underline;
+    }
+}
+p {
+    margin-bottom: 0 !important;
 }

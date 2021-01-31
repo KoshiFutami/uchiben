@@ -2,15 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.user-detail {
+.user-profile {
     width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    background: #fff;
+    border: 1px solid #eeeeef;
+    border-radius: 4px;
+    padding: $spacing-2 $spacing-2;
+
     &__image {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         object-fit: cover;
         background-color: #fff;
@@ -18,7 +24,7 @@
     }
     &__info {
         flex: 1;
-        margin-left: 40px;
+        margin-left: $spacing-4;
     }
     &__name {
         font-size: 1.3rem;
@@ -26,11 +32,35 @@
     }
     &__profile {
         font-size: .9rem;
-        margin-top: 10px;
+        margin-top: $spacing-1;
     }
     &__count {
         color: #666;
         font-size: 1rem;
+        margin-top: $spacing-1;
+    }
+    &__link {
+        width: 100%;
+        text-align: right;
+        margin-top: $spacing-1;
+        a {
+            display: inline-block;
+            font-size: .85rem;
+            color: #fff;
+            background: #888;
+            padding: $spacing-1 $spacing-2;
+            border-radius: 4px;
+            &:hover {
+                color: #fff;
+                opacity: 0.8;
+            }
+        }
+    }
+}
+
+.user-vocabs {
+    .user-profile+& {
+        margin-top: $spacing-3;
     }
 }
 

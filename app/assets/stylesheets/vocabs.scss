@@ -5,7 +5,7 @@
 .vocab__item-list {
     width: 100%;
     margin: 0 auto;
-    padding: 0 18px;
+    padding: $spacing-2 $spacing-3;
     background: #fff;
     border: 1px solid #eeeeef;
     border-radius: 4px;
@@ -125,6 +125,8 @@
         color: #6db151;
     }
 }
+
+
 .vocab__comments {
     opacity: 0;
     pointer-events: none;
@@ -187,6 +189,97 @@
         font-size: .9rem;
         display: block;
     }
+    input[type="submit"] {
+        width: 100px;
+        background: #F6B643;
+        color: #fff;
+        padding: 8px 0;
+        border: 2px solid transparent;
+        border-radius: 99rem;
+        margin: 16px auto 0;
+        display: block;
+        text-align: center;
+    }
+}
+
+/* vocabs#show */
+.vocab-container {
+    background: #fff;
+    border: 1px solid #eeeeef;
+    border-radius: 4px;
+    padding: $spacing-5 $spacing-4;
+    position: relative;
+    .vocab__word {
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+    .vocab__translation {
+        font-size: 1.4rem;
+        margin-top: $spacing-1;
+    }
+    .vocab__sentence {
+        margin-top: $spacing-1;
+        font-size: 1rem;
+    }
+    .caption {
+        margin-top: $spacing-1;
+    }
+    .vocab__menu-btn {
+        position: absolute;
+        top: $spacing-5;
+        right: $spacing-4;
+        color: #999;
+        transition: .25s;
+        cursor: pointer;
+        padding: 6px;
+        &:hover {
+            color: #262626;
+        }
+    }
+    .vocab__menu {
+        position: absolute;
+        top: 80px;
+        right: 8px;
+        background: #fff;
+        border: 1px solid #c6c6c6;
+        padding: 16px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10;
+        &.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        a {
+            display: block;
+            padding: 8px 0;
+            font-size: .9rem;
+            text-align: center;
+        }
+        a+a {
+            border-top: 1px solid #eeeeef;
+        }
+    }
+    .user-profile {
+        border-right: none;
+        border-bottom: none;
+        border-left: none;
+        margin-top: $spacing-3;
+        padding-top: $spacing-3;
+    }
+}
+
+.comment-container {
+    background: #fff;
+    border: 1px solid #eeeeef;
+    border-radius: 4px;
+    margin-top: $spacing-3;
+    padding: $spacing-4 $spacing-3;
+    textarea {
+        display: block;
+        width: 100%;
+        height: 120px;
+    }    
     input[type="submit"] {
         width: 100px;
         background: #F6B643;

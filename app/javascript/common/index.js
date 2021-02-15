@@ -10,6 +10,16 @@ $(function(){
 });
 
 $(function(){
+
+    let btnOpenVocabMenu = $('.vocab__menu-btn');
+    let vocabMenu = $('.vocab__menu');
+    $(btnOpenVocabMenu).on('click', function(){
+        $(vocabMenu).addClass('is-active');
+    });
+
+});
+
+$(function(){
     // Toggleファンクション
     $.fn.clickToggle = function(a, b) {
         return this.each(function() {
@@ -72,4 +82,23 @@ $(function(){
             $(this).removeClass('is-active');
         });
     });
+});
+
+$(function(){
+    function openDropdown(btn,menu){
+        let btnOpenDropdown = $(btn);
+        let dropdownMenu = $(menu);
+        let overlay = $('.header__overlay');
+        btnOpenDropdown.on('click', function(){
+            dropdownMenu.addClass('is-active');
+            overlay.addClass('is-active');
+            
+            overlay.on('click', function(){
+                dropdownMenu.removeClass('is-active');
+                $(this).removeClass('is-active');
+            });
+        });
+    }
+
+    openDropdown('.vocab__menu-btn', '.vocab__menu');
 });

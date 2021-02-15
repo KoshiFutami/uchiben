@@ -1,33 +1,51 @@
-<div><%= @vocab.name %></div>
-<p><%= @vocab.translation %></p>
-<p><%= simple_format h @vocab.sentence %></p>
-<p class="caption"><%= l @vocab.created_at, format: :long %></p>
+<div class="vocab-container">
+    <div class="vocab__word"><%= @vocab.name %></div>
+    <div class="vocab__translation"><%= @vocab.translation %></div>
+    <div class="vocab__sentence"><%= simple_format h @vocab.sentence %></div>
+    <div class="caption"><%= l @vocab.created_at, format: :long %></div>
+    <% if current_user && current_user.id == @vocab.user_id %>
+    <div class="vocab__menu-btn"><i class="fas fa-ellipsis-v"></i></div>
+    <div class="vocab__menu">
+        <%= link_to "うちなーぐちを編集する", edit_vocab_path(@vocab) %>
+        <%= link_to "うちなーぐちを削除する", vocab_path(@vocab), method: :delete %>
+    </div>
+    <% end %>
 
-<% if current_user && current_user.id == @vocab.user_id %>
-    <%= link_to "編集", edit_vocab_path(@vocab), class: 'btn btn-outline-info' %>
-    <%= link_to "削除", vocab_path(@vocab), method: :delete , class: 'btn btn-outline-danger' %>
-<% end %>
+    <div class="user-profile">
+        <% if @vocab.user.avatar.present? %>
+            <%= link_to "/#{@vocab.user.username}" do %>
+                <%= image_tag @vocab.user.avatar, alt: @vocab.user.name, class: "user-profile__image" %>
+            <% end %>
+        <% else %>
+            <%= link_to "/#{@vocab.user.username}" do %>
+                <%= image_tag "user-image-default.png", alt: @vocab.user.name, class: "user-profile__image" %>
+            <% end %>
+        <% end %>
+        <div class="user-profile__info">
+            <h2 class=user-profile__name><%= @vocab.user.name %><span class="caption ml-3 font-weight-normal">@<%= @vocab.user.username %></span></h2>
+            <div class="user-profile__profile"><%= simple_format h @vocab.user.profile %></div>
+        </div>
+    </div>
 
 
-<div id="Comments">コメント一覧</div>
-
-<div class="vocab__comments__item-list" id="vocab_<%= @vocab.id %>_comments_list">
-<% @comments.each do |comment| %>
-    <%= render 'comments/comments_item', {comment: comment} %>
-<% end%>
 </div>
 
-
-<div>コメントする</div>
-
-<% if user_signed_in? %>
-<div class="vocab__comments__input">
-    <%= form_with(model: [@vocab.user, @vocab, @comment], method: :post, remote: true) do |f| %>
-        <%= f.text_area :content, id: "comment_textarea", placeholder: @vocab.user.name + 'さんの投稿にコメント' %>
-        <%= f.submit "投稿" %>
+<div class="comment-container">    
+    
+    <div id="Comments">コメント一覧</div>
+    
+    <div class="vocab__comments__item-list" id="vocab_<%= @vocab.id %>_comments_list">
+    <% @comments.each do |comment| %>
+        <%= render 'comments/comments_item', {comment: comment} %>
+    <% end%>
+    </div>
+    
+    <% if user_signed_in? %>
+    <div class="vocab__comments__input">
+        <%= form_with(model: [@vocab.user, @vocab, @comment], method: :post, remote: true) do |f| %>
+            <%= f.text_area :content, id: "comment_textarea", placeholder: @vocab.user.name + 'さんの投稿にコメント' %>
+            <%= f.submit "投稿" %>
+        <% end %>
+    </div>
     <% end %>
 </div>
-<% end %>
-
-
-<button class="btn btn-secondary" onClick="history.back();">戻る</button>

@@ -100,6 +100,8 @@ class VocabsController < ApplicationController
 
   def search
     @vocabs = Vocab.search(params[:search])
+
+    @comment = Comment.new
   end
 
   def learnings

@@ -296,3 +296,21 @@
         text-align: center;
     }
 }
+
+
+/* vocabs#search */
+.search-box {
+    margin: $spacing-3 auto $spacing-5;
+    display: flex;
+    justify-content: center;
+
+    input[type=text] {
+        width: 240px;
+    }
+    input[type=submit] {
+        margin-left: $spacing-1;
+    }
+}
+.search-result {
+    margin-bottom: $spacing-2 !important;
+}
